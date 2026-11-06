@@ -42,7 +42,7 @@ y las respuestas que dio.
 
 | Angular CLI | 22.0.6 |
 
-| PostgreSQL | <escribe aquí tu versión de postgres, ej. 16> |
+| PostgreSQL | 18 |
 
 
 
@@ -214,9 +214,9 @@ Todos los servicios se registran en Eureka (9000).
 
 \- El acceso es solo por correo, sin contraseña, como pedía la prueba.
 
-\- <Agrega aquí tus dudas reales>
 
-\- No se implementó Docker/Compose ni LTI (puntos opcionales).
+
+
 
 
 
