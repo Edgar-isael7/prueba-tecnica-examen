@@ -1,0 +1,61 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+  --brand: #1f3a5f;
+  --brand-dark: #16294a;
+  --brand-soft: #eaf0fa;
+  --accent: #0e7c7b;
+
+  --ok: #146c43;
+  --ok-bg: #e8f5ee;
+  --bad: #b42318;
+  --bad-bg: #fdecea;
+
+  --page: #f3f5f9;
+  --surface: #ffffff;
+  --ink: #1d2433;
+  --muted: #5b6577;
+  --line: #d9dfe9;
+  --radius: 14px;
+
+  --bs-primary: #1f3a5f;
+  --bs-primary-rgb: 31, 58, 95;
+  --bs-body-bg: var(--page);
+  --bs-body-color: var(--ink);
+  --bs-secondary-color: var(--muted);
+  --bs-border-radius: 10px;
+}
+
+.btn-primary {
+  --bs-btn-bg: #1f3a5f;
+  --bs-btn-border-color: #1f3a5f;
+  --bs-btn-hover-bg: #16294a;
+  --bs-btn-hover-border-color: #16294a;
+  --bs-btn-active-bg: #12233f;
+  --bs-btn-active-border-color: #12233f;
+  --bs-btn-disabled-bg: #1f3a5f;
+  --bs-btn-disabled-border-color: #1f3a5f;
+  --bs-btn-focus-shadow-rgb: 14, 124, 123;
+  font-weight: 600;
+}
+
+.text-muted {
+  color: var(--muted) !important;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(14, 124, 123, 0.6);
+  outline-offset: 2px;
+}
+
+body {
+  min-height: 100vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

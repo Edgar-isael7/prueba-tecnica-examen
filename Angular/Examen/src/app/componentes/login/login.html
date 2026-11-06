@@ -1,0 +1,50 @@
+<section class="entrada" aria-labelledby="titulo-entrada">
+  <div class="entrada__icono" aria-hidden="true">
+    <svg width="34" height="34" viewBox="0 0 32 32">
+      <path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </div>
+
+  <h1 id="titulo-entrada" class="h3 text-center mb-2">Bienvenido a tu evaluación</h1>
+  <p class="text-center text-muted mb-4">
+    Escribe tu correo para comenzar. Si ya presentaste el examen, verás tu resultado.
+  </p>
+
+  <form (submit)="entrar($event)" novalidate>
+    <label for="correo" class="form-label fw-semibold">Correo electrónico</label>
+    <input
+      #campo
+      id="correo"
+      name="correo"
+      type="email"
+      inputmode="email"
+      autocomplete="email"
+      autocapitalize="none"
+      spellcheck="false"
+      class="form-control form-control-lg"
+      placeholder="nombre@correo.com"
+      [class.is-invalid]="mostrarError()"
+      [attr.aria-invalid]="mostrarError()"
+      [attr.aria-describedby]="mostrarError() ? 'correo-error' : null"
+      [value]="correo()"
+      [disabled]="cargando()"
+      (input)="correo.set(campo.value)"
+      (blur)="tocado.set(true)"
+    />
+    @if (mostrarError()) {
+      <div id="correo-error" class="invalid-feedback d-block" role="alert">{{ errorCorreo() }}</div>
+    }
+
+    @if (errorServidor()) {
+      <div class="alert alert-danger mt-3 mb-0" role="alert">{{ errorServidor() }}</div>
+    }
+
+    <button type="submit" class="btn btn-primary btn-lg w-100 mt-4" [disabled]="cargando()">
+      @if (cargando()) {
+        <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Verificando...
+      } @else {
+        Entrar
+      }
+    </button>
+  </form>
+</section>

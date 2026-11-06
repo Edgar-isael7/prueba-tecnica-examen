@@ -1,0 +1,111 @@
+<section aria-labelledby="titulo-examen">
+  <header class="intro">
+    <h1 id="titulo-examen" class="h3 mb-2">Examen de contabilidad</h1>
+    <p class="text-muted mb-3">
+      La Comercializadora Central registra las siguientes operaciones durante su primer mes. Para
+      cada una, ¿cómo se registra en la cuenta Bancos?
+    </p>
+    <ul class="datos">
+      <li>{{ total() || 5 }} preguntas</li>
+      <li>Una opción por pregunta</li>
+      <li>Un solo intento</li>
+    </ul>
+  </header>
+
+  @if (cargando()) {
+    <div role="status" class="visually-hidden">Cargando preguntas...</div>
+    @for (n of [1, 2, 3]; track n) {
+      <div class="pregunta" aria-hidden="true">
+        <p class="placeholder-glow mb-3"><span class="placeholder col-9"></span></p>
+        <p class="placeholder-glow mb-0">
+          <span class="placeholder col-12 mb-2" style="height: 3rem"></span>
+          <span class="placeholder col-12" style="height: 3rem"></span>
+        </p>
+      </div>
+    }
+  }
+
+  @if (errorCarga()) {
+    <div class="alert alert-danger d-flex flex-wrap align-items-center gap-3" role="alert">
+      <span class="flex-grow-1">{{ errorCarga() }}</span>
+      <button type="button" class="btn btn-outline-danger btn-sm" (click)="cargar()">Reintentar</button>
+    </div>
+  }
+
+  @for (p of preguntas(); track p.id; let i = $index) {
+    <fieldset
+      class="pregunta"
+      [id]="'pregunta-' + p.id"
+      [class.pregunta--falta]="intentado() && seleccion()[p.id] === undefined"
+      [class.pregunta--hecha]="seleccion()[p.id] !== undefined"
+    >
+      <legend class="pregunta__titulo">
+        <span class="pregunta__num" aria-hidden="true">{{ i + 1 }}</span>
+        <span class="visually-hidden">Pregunta {{ i + 1 }}: </span>
+        <span>{{ p.texto }}</span>
+      </legend>
+
+      <div class="opciones">
+        @for (o of p.opciones; track o.id; let j = $index) {
+          <div class="opcion">
+            <input
+              class="visually-hidden"
+              type="radio"
+              [name]="'pregunta-' + p.id"
+              [id]="'p' + p.id + 'o' + o.id"
+              [checked]="seleccion()[p.id] === o.id"
+              (change)="elegir(p.id, o.id)"
+            />
+            <label [for]="'p' + p.id + 'o' + o.id">
+              <span class="letra" aria-hidden="true">{{ letras[j] }}</span>
+              <span>{{ o.texto }}</span>
+            </label>
+          </div>
+        }
+      </div>
+
+      @if (intentado() && seleccion()[p.id] === undefined) {
+        <p class="pregunta__aviso">Falta contestar esta pregunta.</p>
+      }
+    </fieldset>
+  }
+
+  @if (total() > 0) {
+    <div class="barra">
+      @if (intentado() && faltantes().length > 0) {
+        <p class="barra__aviso" role="alert">
+          @if (faltantes().length === 1) {
+            Te falta 1 pregunta por contestar.
+          } @else {
+            Te faltan {{ faltantes().length }} preguntas por contestar.
+          }
+        </p>
+      }
+      <div class="barra__fila">
+        <div class="barra__progreso">
+          <div class="barra__texto">
+            <span>Contestadas {{ contestadas() }} de {{ total() }}</span>
+            <span>{{ porcentaje() }}%</span>
+          </div>
+          <div
+            class="progress"
+            role="progressbar"
+            aria-label="Avance del examen"
+            aria-valuemin="0"
+            [attr.aria-valuemax]="total()"
+            [attr.aria-valuenow]="contestadas()"
+          >
+            <div class="progress-bar" [style.width.%]="porcentaje()"></div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary" [disabled]="enviando()" (click)="enviar()">
+          @if (enviando()) {
+            <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Enviando...
+          } @else {
+            Enviar examen
+          }
+        </button>
+      </div>
+    </div>
+  }
+</section>

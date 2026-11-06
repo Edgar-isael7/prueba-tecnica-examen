@@ -1,0 +1,24 @@
+<a class="skip-link" href="#contenido" (click)="irAlContenido($event)">Saltar al contenido</a>
+
+<header class="encabezado">
+  <div class="container encabezado__contenido">
+    <div class="marca">
+      <svg class="marca__logo" width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="8" fill="#ffffff" fill-opacity="0.16" />
+        <path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span>Evaluación</span>
+    </div>
+
+    @if (sesion.email(); as correo) {
+      <div class="usuario">
+        <span class="usuario__correo" [title]="correo">{{ correo }}</span>
+        <button type="button" class="btn btn-sm btn-outline-light" (click)="salir()">Salir</button>
+      </div>
+    }
+  </div>
+</header>
+
+<main id="contenido" tabindex="-1" class="container contenido">
+  <router-outlet />
+</main>
