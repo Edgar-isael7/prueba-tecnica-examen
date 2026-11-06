@@ -1,0 +1,21 @@
+# Eclipse (el workspace completo NO se sube)
+.metadata/
+.recommenders/
+
+# Cada proyecto Java
+target/
+.classpath
+.project
+.settings/
+.factorypath
+*.class
+*.log
+
+# Angular
+node_modules/
+dist/
+.angular/
+
+# Sistema
+Thumbs.db
+.vscode/
